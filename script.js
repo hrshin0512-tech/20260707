@@ -16,7 +16,7 @@ const STORAGE_KEY = "lotto-draw-history";
 const ARCHIVE_CACHE_KEY = "lotto-official-archive";
 const OFFICIAL_API = "https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=";
 const FALLBACK_LATEST_DRAW = 1148;
-const pageSize = 200;
+const pageSize = 40;
 const slotCount = 6;
 let currentDraw = null;
 let history = loadHistory();
@@ -369,6 +369,6 @@ clearHistoryButton.addEventListener("click", clearHistory);
 archiveSearch.addEventListener("input", applyArchiveFilter);
 refreshArchiveButton.addEventListener("click", () => loadArchive({ force: true }));
 loadMoreButton.addEventListener("click", () => {
-  visibleArchiveCount += pageSize;
+  visibleArchiveCount += 40;
   renderArchive();
 });
