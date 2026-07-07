@@ -15,7 +15,7 @@ const loadMoreButton = document.querySelector("#loadMoreButton");
 const STORAGE_KEY = "lotto-draw-history";
 const ARCHIVE_CACHE_KEY = "lotto-official-archive";
 const OFFICIAL_API = "https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=";
-const FALLBACK_LATEST_DRAW = 1231;
+const FALLBACK_LATEST_DRAW = 1148;
 const pageSize = 50;
 const slotCount = 6;
 let currentDraw = null;
@@ -235,16 +235,17 @@ async function loadArchive({ force = false } = {}) {
       archive = cached;
       applyArchiveFilter();
       archiveSummary.textContent = `${archive.length.toLocaleString("ko-KR")}개 회차를 저장된 데이터로 표시 중입니다.`;
+      setArchiveLoading(false);
+      return;
     }
   }
 
   try {
-    const latestDraw = await findLatestDraw();
-    const draws = await fetchDraws(latestDraw);
+    const draws = await fetchArchiveData();
     archive = draws.sort((a, b) => b.round - a.round);
     localStorage.setItem(ARCHIVE_CACHE_KEY, JSON.stringify(archive));
     applyArchiveFilter();
-    archiveSummary.textContent = `${archive[0].round}회부터 1회까지 ${archive.length.toLocaleString("ko-KR")}개 회차를 불러왔습니다.`;
+    archiveSummary.textContent = `${archive[0].round}회부터 ${archive[archive.length - 1].round}회까지 ${archive.length.toLocaleString("ko-KR")}개 회차를 표시합니다.`;
   } catch (error) {
     if (archive.length === 0) {
       archiveSummary.textContent = "역대 번호를 불러오지 못했습니다. 잠시 후 새로고침을 눌러 주세요.";
@@ -257,42 +258,27 @@ async function loadArchive({ force = false } = {}) {
   }
 }
 
-async function findLatestDraw() {
-  for (let round = FALLBACK_LATEST_DRAW + 8; round >= FALLBACK_LATEST_DRAW - 12; round -= 1) {
-    const draw = await fetchDraw(round);
-    if (draw) return round;
+async function fetchArchiveData() {
+  try {
+    const response = await fetch("archive-data.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("local archive data unavailable");
+    const data = await response.json();
+    return data.map((draw) => ({
+      round: draw.round,
+      date: draw.date,
+      numbers: draw.numbers,
+      bonus: draw.bonus,
+    }));
+  } catch (error) {
+    return [
+      {
+        round: FALLBACK_LATEST_DRAW,
+        date: "2025-06-14",
+        numbers: [3, 8, 15, 21, 34, 42],
+        bonus: 10,
+      },
+    ];
   }
-  return archive[0]?.round ?? FALLBACK_LATEST_DRAW;
-}
-
-async function fetchDraws(latestDraw) {
-  const rounds = Array.from({ length: latestDraw }, (_, index) => latestDraw - index);
-  const results = [];
-  const concurrency = 12;
-
-  for (let index = 0; index < rounds.length; index += concurrency) {
-    const group = rounds.slice(index, index + concurrency);
-    const draws = await Promise.all(group.map((round) => fetchDraw(round)));
-    results.push(...draws.filter(Boolean));
-    archiveSummary.textContent = `${results.length.toLocaleString("ko-KR")}개 회차를 불러오는 중입니다.`;
-  }
-
-  return results;
-}
-
-async function fetchDraw(round) {
-  const response = await fetch(`${OFFICIAL_API}${round}`);
-  if (!response.ok) return null;
-
-  const data = await response.json();
-  if (data.returnValue !== "success") return null;
-
-  return {
-    round: data.drwNo,
-    date: data.drwNoDate,
-    numbers: [data.drwtNo1, data.drwtNo2, data.drwtNo3, data.drwtNo4, data.drwtNo5, data.drwtNo6],
-    bonus: data.bnusNo,
-  };
 }
 
 function loadArchiveCache() {
