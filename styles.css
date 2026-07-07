@@ -723,12 +723,21 @@ td {
 th {
   color: #ffffff;
   font-size: 0.82rem;
-  background: #222222;
+  background: #151515;
   font-weight: 700;
 }
 
 td {
   color: #fdfdfd;
+  background: #0f0f0f;
+}
+
+tbody tr {
+  background: #0f0f0f;
+}
+
+tbody tr:nth-child(odd) {
+  background: #131313;
 }
 
 tbody tr:last-child td {
