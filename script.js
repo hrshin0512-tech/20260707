@@ -249,6 +249,15 @@ async function loadArchive({ force = false } = {}) {
 
 async function fetchArchiveData() {
   try {
+    if (window.LOTTO_ARCHIVE_DATA && Array.isArray(window.LOTTO_ARCHIVE_DATA)) {
+      return window.LOTTO_ARCHIVE_DATA.map((draw) => ({
+        round: draw.round,
+        date: draw.date,
+        numbers: draw.numbers,
+        bonus: draw.bonus,
+      }));
+    }
+
     const response = await fetch("archive-data.json", { cache: "no-store" });
     if (!response.ok) throw new Error("local archive data unavailable");
     const data = await response.json();
