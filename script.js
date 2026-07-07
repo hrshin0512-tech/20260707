@@ -16,7 +16,7 @@ const STORAGE_KEY = "lotto-draw-history";
 const ARCHIVE_CACHE_KEY = "lotto-official-archive";
 const OFFICIAL_API = "https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=";
 const FALLBACK_LATEST_DRAW = 1148;
-const pageSize = 50;
+const pageSize = 200;
 const slotCount = 6;
 let currentDraw = null;
 let history = loadHistory();
@@ -228,17 +228,6 @@ function clearHistory() {
 async function loadArchive({ force = false } = {}) {
   setArchiveLoading(true);
   visibleArchiveCount = pageSize;
-
-  if (!force) {
-    const cached = loadArchiveCache();
-    if (cached.length > 0) {
-      archive = cached;
-      applyArchiveFilter();
-      archiveSummary.textContent = `${archive.length.toLocaleString("ko-KR")}개 회차를 저장된 데이터로 표시 중입니다.`;
-      setArchiveLoading(false);
-      return;
-    }
-  }
 
   try {
     const draws = await fetchArchiveData();
