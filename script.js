@@ -103,11 +103,13 @@ function getBallColor(number) {
 function clearSlots() {
   document.querySelectorAll(".slot").forEach((slot) => {
     slot.textContent = "?";
-    slot.style.background = "#c2cad6";
+    slot.style.background = "";
+    slot.style.color = "";
     slot.classList.remove("pop");
   });
   bonusSlot.textContent = "?";
-  bonusSlot.style.background = "#c2cad6";
+  bonusSlot.style.background = "";
+  bonusSlot.style.color = "";
   bonusSlot.classList.remove("pop");
 }
 

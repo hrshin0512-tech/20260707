@@ -496,8 +496,9 @@ h2 {
   width: 58px;
   aspect-ratio: 1;
   font-size: 1.12rem;
-  background: #c2cad6;
-  border: 2px solid rgba(255, 255, 255, 0.72);
+  color: #fdfdfd;
+  background: linear-gradient(135deg, var(--surface-3) 0%, var(--surface-2) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.12);
 }
 
 .slot.pop,
