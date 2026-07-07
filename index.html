@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PinLotto</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="#top">PinLotto</a>
+        <nav class="topbar-nav" aria-label="빠른 이동">
+          <a href="#machine">추첨기</a>
+          <a href="#history">기록</a>
+          <a href="#archive">역대 회차</a>
+        </nav>
+        <a class="button-primary" href="#machine">추첨 시작</a>
+      </header>
+
+      <main class="app" aria-label="로또 추첨기">
+        <section class="hero-card" aria-labelledby="app-title">
+          <div class="hero-copy">
+            <p class="eyebrow">Pinterest-inspired discovery</p>
+            <h1 id="app-title">당첨 번호를 한 번에, 더 즐겁게</h1>
+            <p>
+              로또를 뽑는 순간을 Pinterest처럼 카드형으로 정리해 보았습니다. 번호를 추첨하고,
+              기록을 확인하고, 과거 회차까지 바로 탐색해 보세요.
+            </p>
+            <div class="hero-actions">
+              <a class="button-primary" href="#machine">지금 추첨하기</a>
+              <a class="button-secondary" href="#archive">역대 결과 보기</a>
+            </div>
+            <div class="hero-meta">
+              <span class="hero-pill">랜덤 번호</span>
+              <span class="hero-pill">보너스 포함</span>
+              <span class="hero-pill">기록 저장</span>
+            </div>
+          </div>
+
+          <div class="hero-preview" aria-hidden="true">
+            <div class="preview-card">
+              <p class="preview-title">오늘의 PICK</p>
+              <div class="preview-balls">
+                <span class="preview-ball ball-yellow">7</span>
+                <span class="preview-ball ball-blue">18</span>
+                <span class="preview-ball ball-red">31</span>
+                <span class="preview-ball ball-green">42</span>
+              </div>
+              <p class="preview-copy">피드형으로 정리된 로또 추첨기</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="main-grid">
+          <section class="machine-card" id="machine" aria-labelledby="machine-title">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">오늘의 추첨</p>
+                <h2 id="machine-title">랜덤 번호 뽑기</h2>
+              </div>
+              <div class="card-actions">
+                <button class="icon-button" id="resetButton" type="button" title="초기화" aria-label="초기화">
+                  ↺
+                </button>
+                <button class="icon-button" id="copyButton" type="button" title="복사" aria-label="복사">
+                  ⧉
+                </button>
+              </div>
+            </div>
+
+            <div class="drum" aria-hidden="true">
+              <div class="orbit orbit-a"></div>
+              <div class="orbit orbit-b"></div>
+              <div class="orbit orbit-c"></div>
+              <div class="drum-center">
+                <span>LOTTO</span>
+              </div>
+              <div class="float-ball ball-yellow">7</div>
+              <div class="float-ball ball-blue">18</div>
+              <div class="float-ball ball-red">31</div>
+              <div class="float-ball ball-gray">42</div>
+            </div>
+
+            <div class="result" aria-live="polite" aria-label="추첨 결과">
+              <div class="number-slots" id="numberSlots"></div>
+              <div class="bonus-wrap">
+                <span class="plus">+</span>
+                <div class="bonus-slot" id="bonusSlot" title="보너스 번호">?</div>
+              </div>
+            </div>
+
+            <div class="controls">
+              <button class="primary" id="drawButton" type="button">추첨하기</button>
+              <button class="secondary" id="quickButton" type="button">즉시 추첨</button>
+            </div>
+          </section>
+
+          <aside class="history-card" id="history" aria-labelledby="history-title">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">최근 저장</p>
+                <h2 id="history-title">추첨 기록</h2>
+              </div>
+              <button class="text-button" id="clearHistoryButton" type="button">비우기</button>
+            </div>
+            <ol id="historyList" class="history-list"></ol>
+          </aside>
+        </div>
+
+        <section class="archive-card" id="archive" aria-labelledby="archive-title">
+          <div class="archive-head">
+            <div>
+              <p class="eyebrow">Official Results</p>
+              <h2 id="archive-title">역대 로또 당첨번호</h2>
+            </div>
+            <a class="official-link" href="https://www.dhlottery.co.kr/lt645/intro" target="_blank" rel="noreferrer">
+              동행복권 보기
+            </a>
+          </div>
+
+          <div class="guide-grid" aria-label="로또6/45 공식 안내">
+            <div><strong>게임</strong><span>1~45 중 6개 선택</span></div>
+            <div><strong>가격</strong><span>1게임 1,000원</span></div>
+            <div><strong>추첨</strong><span>매주 토요일 20:35경</span></div>
+            <div><strong>1등 확률</strong><span>1 / 8,145,060</span></div>
+          </div>
+
+          <div class="archive-tools">
+            <label class="search-field">
+              <span>검색</span>
+              <input id="archiveSearch" type="search" placeholder="회차 또는 번호 입력" autocomplete="off" />
+            </label>
+            <button class="secondary" id="refreshArchiveButton" type="button">새로고침</button>
+          </div>
+
+          <div class="archive-summary" id="archiveSummary" aria-live="polite">데이터를 불러오는 중입니다.</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">회차</th>
+                  <th scope="col">추첨일</th>
+                  <th scope="col">당첨번호</th>
+                  <th scope="col">보너스</th>
+                </tr>
+              </thead>
+              <tbody id="archiveBody"></tbody>
+            </table>
+          </div>
+          <div class="archive-actions">
+            <button class="secondary" id="loadMoreButton" type="button">더 보기</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
