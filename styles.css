@@ -721,10 +721,12 @@ td {
 }
 
 th {
-  color: #ffffff;
+  color: #f8f8f8;
   font-size: 0.82rem;
-  background: #1d1d1d;
-  font-weight: 700;
+  background: linear-gradient(180deg, #242424 0%, #171717 100%);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 td {
