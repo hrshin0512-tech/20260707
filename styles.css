@@ -13,11 +13,11 @@
   --warning: #ffa42b;
   --error: #f3727f;
   --info: #539df5;
-  --yellow: #f4bd32;
-  --blue: #4a8fe7;
-  --red: #e25b5b;
-  --gray: #5f6872;
-  --green: #1ed760;
+  --yellow: #c88c00;
+  --blue: #2d5fb0;
+  --red: #b73b44;
+  --gray: #4b5560;
+  --green: #129442;
   --shadow: rgba(0, 0, 0, 0.5) 0px 8px 24px;
   --shadow-soft: rgba(0, 0, 0, 0.3) 0px 8px 8px;
   --radius-pill: 9999px;
@@ -433,6 +433,8 @@ h2 {
   place-items: center;
   color: #fff;
   font-weight: 900;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.72), 0 0 3px rgba(0, 0, 0, 0.28);
+  -webkit-text-stroke: 0.4px rgba(0, 0, 0, 0.28);
   box-shadow:
     inset -8px -10px 18px rgba(0, 0, 0, 0.16),
     inset 6px 6px 13px rgba(255, 255, 255, 0.42),
