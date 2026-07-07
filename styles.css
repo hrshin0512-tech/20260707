@@ -1,15 +1,15 @@
 :root {
   color-scheme: dark;
-  --background: #121212;
-  --surface: #181818;
-  --surface-2: #1f1f1f;
-  --surface-3: #252525;
+  --background: #0f0f0f;
+  --surface: #171717;
+  --surface-2: #1e1e1e;
+  --surface-3: #232323;
   --text-base: #ffffff;
-  --text-subtle: #b3b3b3;
-  --text-muted: #7c7c7c;
+  --text-subtle: #f5f5f5;
+  --text-muted: #d8d8d8;
   --accent: #1ed760;
   --accent-strong: #1db954;
-  --border: #4d4d4d;
+  --border: #5e5e5e;
   --warning: #ffa42b;
   --error: #f3727f;
   --info: #539df5;
@@ -92,7 +92,7 @@ a {
 .topbar-nav a {
   padding: 8px 12px;
   border-radius: var(--radius-pill);
-  color: var(--text-subtle);
+  color: #f7f7f7;
   font-weight: 700;
 }
 
@@ -185,7 +185,7 @@ a {
 
 .hero-copy p {
   margin-top: 14px;
-  color: var(--text-subtle);
+  color: #f2f2f2;
   font-size: 1rem;
   line-height: 1.6;
 }
@@ -219,8 +219,8 @@ a {
   padding: 8px 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius-pill);
-  background: var(--surface-2);
-  color: var(--text-subtle);
+  background: #202020;
+  color: #f7f7f7;
   font-size: 0.9rem;
   font-weight: 600;
 }
@@ -288,7 +288,7 @@ a {
 
 .preview-copy {
   margin: 0;
-  color: var(--text-subtle);
+  color: #f2f2f2;
   font-size: 0.95rem;
 }
 
@@ -512,7 +512,7 @@ h2 {
 }
 
 .plus {
-  color: var(--muted);
+  color: #ffffff;
   font-size: 1.3rem;
   font-weight: 800;
 }
@@ -602,7 +602,7 @@ h2 {
 }
 
 .history-meta {
-  color: var(--text-subtle);
+  color: #f5f5f5;
   font-size: 0.82rem;
   font-weight: 700;
 }
@@ -669,7 +669,7 @@ h2 {
   flex: 1 1 260px;
   display: grid;
   gap: 6px;
-  color: var(--muted);
+  color: #f7f7f7;
   font-size: 0.84rem;
   font-weight: 700;
 }
@@ -700,7 +700,7 @@ h2 {
   overflow: auto;
   border: 1px solid var(--border);
   border-radius: 18px;
-  background: linear-gradient(135deg, var(--surface-2) 0%, #202020 100%);
+  background: linear-gradient(135deg, #1d1d1d 0%, #121212 100%);
 }
 
 table {
@@ -718,14 +718,14 @@ td {
 }
 
 th {
-  color: #f5f5f5;
+  color: #ffffff;
   font-size: 0.82rem;
-  background: #252525;
+  background: #222222;
   font-weight: 700;
 }
 
 td {
-  color: #f3f3f3;
+  color: #fdfdfd;
 }
 
 tbody tr:last-child td {
