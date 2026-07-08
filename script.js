@@ -25,6 +25,18 @@ let archive = [];
 let filteredArchive = [];
 let visibleArchiveCount = pageSize;
 
+const supabaseConfig = window.SUPABASE_CONFIG || {};
+const supabaseEnabled = Boolean(
+  supabaseConfig.url &&
+    supabaseConfig.anonKey &&
+    supabaseConfig.url !== "https://YOUR_PROJECT_REF.supabase.co"
+);
+let supabaseClient = null;
+
+if (supabaseEnabled && window.supabase) {
+  supabaseClient = window.supabase.createClient(supabaseConfig.url, supabaseConfig.anonKey);
+}
+
 function createSlots() {
   numberSlots.innerHTML = "";
   for (let index = 0; index < slotCount; index += 1) {
@@ -120,10 +132,32 @@ function setDrawingState(active) {
   drawButton.textContent = active ? "추첨 중..." : "추첨하기";
 }
 
+async function saveDrawToSupabase(draw) {
+  if (!supabaseClient) return;
+
+  try {
+    const { error } = await supabaseClient.from("lotto_draws").insert([
+      {
+        numbers: draw.numbers,
+        bonus: draw.bonus,
+        created_at: draw.createdAt,
+        source: "app",
+      },
+    ]);
+
+    if (error) {
+      throw error;
+    }
+  } catch (error) {
+    console.warn("Supabase 저장에 실패했습니다.", error);
+  }
+}
+
 function addToHistory(draw) {
   history = [draw, ...history].slice(0, 12);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
   renderHistory();
+  void saveDrawToSupabase(draw);
 }
 
 function loadHistory() {
